@@ -1,6 +1,6 @@
-# File sinh tu dong cho Demo
+# File sinh tu dong cho Zrackingchill
 def main():
-    print("Hello")
+    print("Tool v1")
 
 if __name__ == "__main__":
     main()
