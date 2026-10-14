@@ -1,0 +1,232 @@
+FREE FIRE OB55 - OFFSET 1.123.3
+============================== BONE OFFSET OB55 1.123.3 ============================== 🤍
+
+[FILE INFORMATION]
+libil2cpp.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, for Android 22, built by NDK r23b (7779620), BuildID[sha1]=ee8bf32c4483429084fde022704ead01a94b6620, stripped
+
+[ELF HEADER]
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           AArch64
+  Version:                           0x1
+  Entry point address:               0x322B8DC
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          184108016 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         14
+  Size of section headers:           64 (bytes)
+  Number of section headers:         24
+  Section header string table index: 23
+  572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3F000080
+3F0000803F0000803F09000000626F6
+E655F4E65636BA158C305B2F71FA4
+572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3FA4709D
+3F9A99993F60E5903F10000000626F6
+E655F4865616400000000000000A158C3
+05B2F71FA4
+
+============================== OFFSHET OB55 ==============================💸
+
+   O UMATransform data
+0 Vector3f position
+0 float x = - 0.14370476
+0 float y = - 0.0102021145
+0 float z = -6.0074164E-08
+0 Quaternionf rotation
+0 float x =6.180791E-14 Cắt Sao chép Dan >
+0 float y = 3.9917686E-07
+O float z = - 0.14392011
+0 float w = 0.98958933
+0 Vector3f scale
+0 float x = 1
+0 float y = 1
+0 float z = 1
+1 string name = "bone_Neck"
+0 int hash = 96688289
+0 int parent = -1541408846
+O UMATransform data
+0 Vector3f position
+0 float x = -0.14370476
+0 float y = -0.0102021145
+0 float z = -6.0074164E-08
+0 Quaternionf rotation
+0 float x = 6.180791E-14
+0 float y = 3.9917686E-07
+Quaternionf rotation
+0 float x = 6.180791E - 14
+0 float y = 3.9917686E-07
+O float z = - 0.14392011
+0 float w = 0.98958933
+0 Vector3f scale
+0 float x = 1.23
+0 float y = 1.2
+0 float z = 1.132
+1 string name = "bone_Head"
+0 int hash = 96688289
+0 int parent = -1541408846
+[ELF SECTIONS]
+There are 24 section headers, starting at offset 0xaf943f0:
+572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3F000080
+3F0000803F0000803F09000000626F6
+E655F4E65636BA158C305B2F71FA4
+572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3FA4709D
+3F9A99993F60E5903F10000000626F6
+E655F4865616400000000000000A158C3
+05B2F71FA4
+
+============================== BONE HEAD ==============================🧩
+
+Section Headers:
+  [Nr] Name              Type            Address          Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            0000000000000000 000000 000000 00      0   0  0
+  [ 1] .note.android.ident NOTE          0000000001771e9c 1771e9c 000098 00   A  0   0  4
+  [ 2] .note.gnu.build-id NOTE           000000000a739c18 a731c18 000024 00   A  0   0  4
+  [ 3] .dynsym           DYNSYM          000000000b1e8470 af84470 00feb8 18   A  8   1  8
+  [ 4] .gnu.version      VERSYM          00000000000100b0 0100b0 001520 02   A  3   0  2
+  [ 5] .gnu.version_r    VERNEED         00000000000115d0 0115d0 000060 00   A  8   3  4
+  [ 6] .gnu.hash         GNU_HASH        0000000000011630 011630 003f0c 00   A  3   0  8
+  [ 7] .hash             HASH            000000000001553c 01553c 005488 04   A  3   0  4
+  [ 8] .dynstr           STRTAB          0000000001755fe8 1755fe8 01beb1 00   A  0   0  1
+  [ 9] .rela.dyn         RELA            000000000001a9c8 01a9c8 173b620 18   A  3   0  8
+  [10] .rela.plt         RELA            0000000000000350 000350 001c98 18  AI  3  22  8
+  [11] .gcc_except_table PROGBITS        0000000001773110 1773110 1d8d48 00   A  0   0  4
+  [12] .rodata           PROGBITS        000000000194be60 194be60 7f448b 00 AMS  0   0 16
+  [13] .eh_frame_hdr     PROGBITS        00000000021402ec 21402ec 37ea1c 00   A  0   0  4
+  [14] .eh_frame         PROGBITS        00000000024bed08 24bed08 d68bd4 00   A  0   0  8
+  [15] .text             PROGBITS        000000000322b8dc 32278dc 71fa750 00  AX  0   0  4
+  [16] .plt              PROGBITS        000000000a426030 a422030 002520 00  AX  0   0 16
+  [17] .data.rel.ro      PROGBITS        000000000a42c550 a424550 30d468 00  WA  0   0  8
+  [18] .fini_array       FINI_ARRAY      000000000a7399b8 a7319b8 000010 00  WA  0   0  8
+  [19] .dynamic          DYNAMIC         000000000a739a18 a731a18 000200 10  WA  8   0  8
+  [20] .got              PROGBITS        000000000a739c60 a731c60 18f3a8 00  WA  0   0  8
+  [21] .got.plt          PROGBITS        000000000a8c9008 a8c1008 001298 00  WA  0   0  8
+  [22] .data             PROGBITS        000000000a8ce2a0 a8c22a0 6bcc80 00  WA  0   0  8
+  [23] .shstrtab         STRTAB          0000000000000000 af7ef20 000113 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  R (retain), y (purecode), p (processor specific)
+  572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3F000080
+3F0000803F0000803F09000000626F6
+E655F4E65636BA158C305B2F71FA4
+572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3FA4709D
+3F9A99993F60E5903F10000000626F6
+E655F4865616400000000000000A158C3
+05B2F71FA4
+
+============================== BONE NOTDE ==============================📎
+
+[DYNAMIC SECTION]
+Dynamic section at offset 0xa731a18 contains 27 entries:
+  Tag                Type           Name/Value
+  0x0000000000000001 (NEEDED)       Shared library: [liblog.so]
+  0x0000000000000001 (NEEDED)       Shared library: [libm.so]
+  0x0000000000000001 (NEEDED)       Shared library: [libdl.so]
+  0x0000000000000001 (NEEDED)       Shared library: [libc.so]
+  0x0000000000000001 (NEEDED)       Shared library: [libstdc++.so]
+  0x0000000000000001 (NEEDED)       Shared library: [libanort.so]
+  0x000000000000000e (SONAME)       Library soname: [libil2cpp.so]
+  0x000000000000001e (FLAGS)        BIND_NOW 
+  0x000000006ffffffb (FLAGS_1)      NOW 
+  0x0000000000000007 (RELA)         0x1a9c8
+  0x0000000000000008 (RELASZ)       24360480 (bytes)
+  0x0000000000000009 (RELAENT)      24 (bytes)
+  0x000000006ffffff9 (RELACOUNT)    1012841
+  0x0000000000000017 (JMPREL)       0x350
+  0x0000000000000002 (PLTRELSZ)     7320 (bytes)
+  0x0000000000000003 (PLTGOT)       0xa8c9008
+  0x0000000000000014 (PLTREL)       RELA
+  0x0000000000000006 (SYMTAB)       0xb1e8470
+  0x000000000000000b (SYMENT)       24 (bytes)
+  0x0000000000000005 (STRTAB)       0x1755fe8
+  0x000000000000000a (STRSZ)        114353 (bytes)
+  0x000000006ffffef5 (GNU_HASH)     0x11630
+  0x0000000000000004 (HASH)         0x1553c
+  0x000000000000000c (INIT)         0xb1da42c
+  0x000000000000001a (FINI_ARRAY)   0xa7399b8
+  0x000000000000001c (FINI_ARRAYSZ) 16 (bytes)
+  0x0000000000000000 (NULL)         0x0
+  572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3F000080
+3F0000803F0000803F09000000626F6
+E655F4E65636BA158C305B2F71FA4
+572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3FA4709D
+3F9A99993F60E5903F10000000626F6
+E655F4865616400000000000000A158C3
+05B2F71FA4
+  
+============================== BONE NECK ==============================🧊
+
+O UMATransform data
+0 Vector3f position
+0 float x = - 0.14370476
+0 float y = - 0.0102021145
+0 float z = -6.0074164E-08
+0 Quaternionf rotation
+0 float x =6.180791E-14 Cắt Sao chép Dan >
+0 float y = 3.9917686E-07
+O float z = - 0.14392011
+0 float w = 0.98958933
+0 Vector3f scale
+0 float x = 1
+0 float y = 1
+0 float z = 1
+1 string name = "bone_Neck"
+0 int hash = 96688289
+0 int parent = -1541408846
+O UMATransform data
+0 Vector3f position
+0 float x = -0.14370476
+0 float y = -0.0102021145
+0 float z = -6.0074164E-08
+0 Quaternionf rotation
+0 float x = 6.180791E-14
+0 float y = 3.9917686E-07
+Quaternionf rotation
+0 float x = 6.180791E - 14
+0 float y = 3.9917686E-07
+O float z = - 0.14392011
+0 float w = 0.98958933
+0 Vector3f scale
+0 float x = 1.23
+0 float y = 1.2
+0 float z = 1.132
+1 string name = "bone_Head"
+0 int hash = 96688289
+0 int parent = -1541408846
+ 
+============================== BONE LOCK ==============================🩸
+
+Hex ghép không khoảng cách:
+
+572713BEC52627BC1F0281B3D62D8B29734ED634C
+3BEBA557D3F0000803F0000803F0000803F090000
+6F6E655F4E65636BA158C305B2F71FA4
+572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3F000080
+3F0000803F0000803F09000000626F6
+E655F4E65636BA158C305B2F71FA4
+572713BEC52627BC1F0281B3D62D8B2
+9734ED634CB5F13BEBA557D3FA4709D
+3F9A99993F60E5903F10000000626F6
+E655F4865616400000000000000A158C3
+05B2F71FA4
+ 
+ 
+ (Zracking chill)

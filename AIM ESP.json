@@ -1,0 +1,9 @@
+{
+  "verAddr": "",
+  "resetGuest": false,
+  "fps": 120,
+  "graphics": "low",
+  "resolution": "1024x576",
+  "shadow": false,
+  "effects": false
+}
