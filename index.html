@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aim ESP Demo</title>
+<style>
+  html,body{margin:0;padding:0;background:#000;color:#0f0;font-family:monospace;overflow:hidden;}
+  #hud{position:fixed;top:8px;left:8px;z-index:10;font-size:12px;line-height:1.4;background:rgba(0,0,0,.5);padding:6px 8px;border:1px solid #0f0;}
+  #hud button{background:#000;color:#0f0;border:1px solid #0f0;margin:2px;padding:2px 6px;font-family:monospace;font-size:11px;}
+  #hud button.on{background:#0f0;color:#000;}
+  canvas{display:block;}
+  #cross{position:fixed;left:50%;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;z-index:9;pointer-events:none;}
+  #cross::before,#cross::after{content:"";position:absolute;background:#0f0;}
+  #cross::before{left:9px;top:0;width:2px;height:20px;}
+  #cross::after{top:9px;left:0;height:2px;width:20px;}
+  #cross.off{display:none;}
+</style>
+</head>
+<body>
+<div id="cross" class="off"></div>
+<div id="hud">
+  <div>FPS: <span id="fps">0</span></div>
+  <div>Mục tiêu: <span id="cnt">0</span></div>
+  <button id="bEsp" class="on">ESP: ON</button>
+  <button id="bAim" class="on">AIM: ON</button>
+  <button id="bCross" class="on">CROSS: ON</button>
+  <div>Chạm màn hình để aim vào mục tiêu gần tâm nhất</div>
+</div>
+<canvas id="cv"></canvas>
+<script>
+const CFG = {
+  esp: true,
+  aim: true,
+  cross: true,
+  fov: 260,
+  boxColor: '#00ff00',
+  lineColor: '#00ffff',
+  targetColor: '#ff0040',
+  numTargets: 6,
+  targetSpeed: 0.6
+};
+
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+let W = 0, H = 0;
+function resize(){ W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+window.addEventListener('resize', resize);
+resize();
+
+class Target {
+  constructor(){
+    this.x = Math.random()*W;
+    this.y = Math.random()*H;
+    this.w = 40 + Math.random()*30;
+    this.h = 80 + Math.random()*40;
+    this.vx = (Math.random()-0.5)*2*CFG.targetSpeed*2;
+    this.vy = (Math.random()-0.5)*2*CFG.targetSpeed*2;
+    this.alive = true;
+    this.hp = 100;
+  }
+  update(dt){
+    this.x += this.vx;
+    this.y += this.vy;
+    if(this.x < this.w/2 || this.x > W-this.w/2) this.vx *= -1;
+    if(this.y < this.h/2 || this.y > H-this.h/2) this.vy *= -1;
+    this.x = Math.max(this.w/2, Math.min(W-this.w/2, this.x));
+    this.y = Math.max(this.h/2, Math.min(H-this.h/2, this.y));
+  }
+  get box(){ return { x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h }; }
+  get center(){ return { x: this.x, y: this.y - this.h*0.25 }; }
+  get head(){ return { x: this.x, y: this.y - this.h/2 + 12 }; }
+}
+
+let targets = [];
+let last = performance.now();
+let fpsCount = 0, fpsTimer = 0;
+
+function spawnTargets(n){ targets = []; for(let i=0;i<n;i++) targets.push(new Target()); }
+spawnTargets(CFG.numTargets);
+
+function drawBox(t){
+  const b = t.box;
+  ctx.strokeStyle = CFG.boxColor;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(b.x, b.y, b.w, b.h);
+  const c = 8;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(b.x, b.y+c); ctx.lineTo(b.x, b.y); ctx.lineTo(b.x+c, b.y);
+  ctx.moveTo(b.x+b.w-c, b.y); ctx.lineTo(b.x+b.w, b.y); ctx.lineTo(b.x+b.w, b.y+c);
+  ctx.moveTo(b.x+b.w, b.y+b.h-c); ctx.lineTo(b.x+b.w, b.y+b.h); ctx.lineTo(b.x+b.w-c, b.y+b.h);
+  ctx.moveTo(b.x+c, b.y+b.h); ctx.lineTo(b.x, b.y+b.h); ctx.lineTo(b.x, b.y+b.h-c);
+  ctx.stroke();
+  const hd = t.head;
+  ctx.strokeStyle = CFG.lineColor;
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(hd.x-20, hd.y); ctx.lineTo(hd.x+20, hd.y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(t.x-20, b.y+b.h); ctx.lineTo(t.x+20, b.y+b.h); ctx.stroke();
+  ctx.fillStyle = '#000'; ctx.fillRect(b.x-8, b.y, 5, b.h);
+  ctx.fillStyle = '#0f0';
+  const hp = t.hp/100;
+  ctx.fillRect(b.x-8, b.y + b.h*(1-hp), 5, b.h*hp);
+  ctx.fillStyle = '#0f0'; ctx.font = '12px monospace'; ctx.textAlign = 'center';
+  ctx.fillText('TARGET', t.x, b.y-6);
+  const dx = t.x - W/2, dy = t.y - H/2;
+  const dist = Math.sqrt(dx*dx+dy*dy).toFixed(0);
+  ctx.fillStyle = '#ffff00'; ctx.fillText(dist+'m', t.x, b.y+b.h+14);
+}
+
+function findClosestToCenter(){
+  let best = null, bestD = CFG.fov;
+  const cx = W/2, cy = H/2;
+  for(const t of targets){
+    if(!t.alive) continue;
+    const c = t.center;
+    const d = Math.hypot(c.x-cx, c.y-cy);
+    if(d < bestD){ bestD = d; best = t; }
+  }
+  return best;
+}
+
+function drawFov(){
+  ctx.strokeStyle = 'rgba(0,255,255,0.25)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(W/2, H/2, CFG.fov, 0, Math.PI*2); ctx.stroke();
+}
+
+function drawAimLine(t){
+  if(!t) return;
+  const c = t.center;
+  ctx.strokeStyle = 'rgba(255,0,64,0.8)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([6,6]);
+  ctx.beginPath(); ctx.moveTo(W/2, H/2); ctx.lineTo(c.x, c.y); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = CFG.targetColor;
+  ctx.beginPath(); ctx.arc(c.x, c.y, 5, 0, Math.PI*2); ctx.fill();
+}
+
+function loop(now){
+  const dt = Math.min(50, now-last)/16.67;
+  last = now;
+  fpsCount++; fpsTimer += dt*16.67;
+  if(fpsTimer > 500){
+    document.getElementById('fps').textContent = Math.round(fpsCount*1000/fpsTimer);
+    fpsCount = 0; fpsTimer = 0;
+  }
+  for(const t of targets) t.update(dt);
+  ctx.fillStyle = '#000'; ctx.fillRect(0,0,W,H);
+  if(CFG.esp){ drawFov(); for(const t of targets) drawBox(t); }
+  if(CFG.aim){ const best = findClosestToCenter(); drawAimLine(best); }
+  document.getElementById('cnt').textContent = targets.length;
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+document.getElementById('bEsp').onclick = function(){
+  CFG.esp = !CFG.esp; this.classList.toggle('on', CFG.esp);
+  this.textContent = 'ESP: ' + (CFG.esp?'ON':'OFF');
+};
+document.getElementById('bAim').onclick = function(){
+  CFG.aim = !CFG.aim; this.classList.toggle('on', CFG.aim);
+  this.textContent = 'AIM: ' + (CFG.aim?'ON':'OFF');
+};
+const crossEl = document.getElementById('cross');
+document.getElementById('bCross').onclick = function(){
+  CFG.cross = !CFG.cross; this.classList.toggle('on', CFG.cross);
+  this.textContent = 'CROSS: ' + (CFG.cross?'ON':'OFF');
+  crossEl.classList.toggle('off', !CFG.cross);
+};
+crossEl.classList.toggle('off', !CFG.cross);
+
+cv.addEventListener('touchstart', e=>{
+  if(!CFG.aim) return;
+  const best = findClosestToCenter();
+  if(best){
+    best.hp = Math.max(0, best.hp-25);
+    if(best.hp === 0){
+      best.alive = false;
+      setTimeout(()=>{ best.alive = true; best.hp = 100; }, 1500);
+    }
+  }
+}, {passive:true});
+
+cv.addEventListener('mousedown', ()=>{
+  if(!CFG.aim) return;
+  const best = findClosestToCenter();
+  if(best) best.hp = Math.max(0, best.hp-25);
+});
+
+window.addEventListener('keydown', e=>{
+  if(e.key === '+' || e.key === '='){ CFG.numTargets++; spawnTargets(CFG.numTargets); }
+  if(e.key === '-'){ CFG.numTargets = Math.max(1, CFG.numTargets-1); spawnTargets(CFG.numTargets); }
+});
+</script>
+</body>
+  </html>
